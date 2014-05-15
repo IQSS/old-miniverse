@@ -16,5 +16,5 @@ Run on Port 8090
 	python manage.py runserver 8090
 	
 	
-![Miniverse screenshot](tree/master/miniverse/miniverse/static/images/miniverse_screenshot.png?raw=true "File Listing")
+![Miniverse screenshot](blob/master/miniverse/miniverse/static/images/miniverse_screenshot.png?raw=true "File Listing")
 
