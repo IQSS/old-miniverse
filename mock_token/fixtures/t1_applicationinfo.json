@@ -1,0 +1,19 @@
+[
+{
+    "pk": 1, 
+    "model": "mock_token.applicationinfo", 
+    "fields": {
+        "update_time": "2014-05-12T14:37:40.483Z", 
+        "name": "GeoConnect Harvard", 
+        "time_limit_seconds": 1800, 
+        "hostname": "", 
+        "mapit_link": "http://127.0.0.1:8000/geoconnect/shp/", 
+        "time_limit_minutes": 30, 
+        "create_time": "2014-05-12T14:37:40.482Z", 
+        "contact_email": "raman_prasad@harvard.edu", 
+        "md5": "739f1f9869b3e650ff3c09a470f62ce2", 
+        "ip_address": "", 
+        "description": "Service to join the Dataverse and WorldMap"
+    }
+}
+]

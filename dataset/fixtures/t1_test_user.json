@@ -1,0 +1,20 @@
+[
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "rprasad", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2014-05-12T14:11:56.891Z", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$12000$SOJt26QTvdb1$kAvkFKtl/BbXbspW6Ih84FonpACMMYIa6y9SvrrujmY=", 
+        "email": "raman_prasad@harvard.edu", 
+        "date_joined": "2014-05-06T11:09:49.853Z"
+    }
+}
+]

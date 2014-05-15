@@ -1,0 +1,26 @@
+{% load dataset_extras %}
+<table class="table table-bordered table-condensed">
+	<tr>
+		<th>File name</th>
+		<th>Size</th>
+		<th>Has GIS data?</th>
+		<th>Upload date</th>
+	</tr>
+{% for f in ds.get_files %}
+	<tr>
+		<td>{{ f.get_basename }}</td>
+		<td class="text-right">{{ f.dataset_file.size|readable_filesize }}</td>
+		<td class="text-right">
+			<a href="{% url 'view_map_it' f.md5 %}" class="btn btn-xs btn-default">meta</a>
+			&nbsp;
+			{% if f.has_gis_data %}<a href="{% url 'view_geoconnect_map_it' f.md5 %}?cb={% url 'view_single_file_metadata_base_url' %}" xstyle="text-decoration:none;" target="mapit" class="btn btn-success btn-xs">Map It!</a>
+			{% endif %}
+			</td>
+		<td class="text-center">{{ f.create_time|date:"M j, Y  P" }}</td>
+	</tr>
+{% empty %}
+	<tr>
+		<td colspan="5"><i>No files available</i></td>
+	</tr>
+{% endfor %}
+</table>

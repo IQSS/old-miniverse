@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load dataset_extras %}
+
+{% block extra_header %}
+<script>
+$("#ajaxform").submit(function(e)
+{
+    var postData = $(this).serializeArray();
+    var formURL = $(this).attr("action");
+    $.ajax(
+    {
+        url : formURL,
+        type: "POST",
+        data : postData,
+        success:function(data, textStatus, jqXHR)
+        {
+            //data: return data from server
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            //if fails     
+        }
+    });
+    e.preventDefault(); //STOP default action
+    e.unbind(); //unbind. to stop multiple form submit.
+});
+$("#ajaxform").submit(); //Submit  the FORM
+</script>
+{% endblock %}
+
+{% block main_container %}
+<ul class="list-inline">
+  <li>Datasets: {{ datasets.count }}</li>
+  <li>Files: {{ file_count }}</li>
+  <li>GIS files: {{ gis_file_count }}</li>
+</ul>
+
+
+{% for ds in datasets %}
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h3 class="panel-title">{{ ds }}<span style="font-size:70%">
+		&nbsp; <a href="{% url 'admin:dataset_dataset_change' ds.id %}">edit</a></h3>
+  </div>
+  <div class="panel-body">
+    <p>Dataverse: <b>{{ ds.dataverse.name }}</b>
+	  (<i>{{ ds.dataverse.breadcrumb }}</i>)
+	  </div>
+  {% include "file_list_table.html" %}
+</div>
+<br />
+{% empty %}
+<div class="alert alert-danger fade in">
+      <h5>Sorry, no datasets available</h5>
+      <p>There are not datasets in the database.</p>
+</div>
+{% endfor %}
+
+{% endblock %}

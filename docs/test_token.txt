@@ -1,0 +1,16 @@
+
+Authorized Applications
+- IP Address	
+- Hostname
+- Application public key
+- Time Limit (seconds)
+
+Token Table
+- token
+- authorized application (FK)
+- create time
+- refresh time
+- dataset id
+- DVN user id
+- is dataset or dataverse owner (can update metadata)
+

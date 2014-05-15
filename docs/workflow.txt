@@ -1,0 +1,3 @@
+(1) Send token + metadata?
+(2) Request metadata, including file names, if more than one file
+(3) Request file
