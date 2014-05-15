@@ -1,10 +1,8 @@
 # miniverse
 
-Used to test dataverse GeoConnect functions.
+Used to test Dataverse GeoConnect functions, specifically workflow and types of API calls that may be needed.
 
-This purpose is proof-of-concept testing for building a connection between the Dataverse and WorldMap.
-
-Includes a "Map It" button that sends a fake token associated with a particular file,
+This soley for "proof of concept" and will expand to test how different types of files will interact with GeoConnect.
 
 ### Requirements
 
