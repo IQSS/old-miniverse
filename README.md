@@ -1,8 +1,8 @@
 # miniverse
 
-Used to test Dataverse GeoConnect functions, specifically workflow and types of API calls that may be needed.
+Used to test Dataverse GeoConnect functions, specifically the workflow and types of API calls that may be needed.
 
-This soley for "proof of concept" and will expand to test how different types of files will interact with GeoConnect.
+This project is solely for "proof of concept" and will expand to test how different types of files will interact with GeoConnect.
 
 ### Requirements
 
@@ -15,8 +15,8 @@ Run on Port 8090
 
 	python manage.py runserver 8090
 	
-### Simple function
+### Simple functionality
 
-Admin file upload and single page for linking to "GeoConnect" or viewing the type of metadata that a token can access.
+Djanog admin file upload and a single page for linking to "GeoConnect" or viewing the type of metadata that a token can access.
 	
 ![Miniverse screenshot](miniverse/miniverse/static/images/miniverse_screenshot.png?raw=true "File Listing")
