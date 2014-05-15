@@ -11,7 +11,7 @@ Includes a "Map It" button that sends a fake token associated with a particular 
 * Django 1.6
 * python 2.6+ (tested with 2.7, but not 3.x)
 
-### Run on dev server with GeoConnect
+### Run on dev server with [GeoConnect](https://github.com/IQSS/geoconnect)
 
 Run on Port 8090
 
