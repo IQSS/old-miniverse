@@ -4,10 +4,10 @@ from mock_token.models import ApplicationInfo, DataverseToken
 
 """
 class DataverseTokenInline(admin.TabularInline):
-    model = SingleFile
+    model = DataFile
     extra= 1
     readonly_fields = ('update_time', 'create_time', 'md5', )
-    fields = ('dataverse_user', 'single_file', 'application')
+    fields = ('dataverse_user', 'data_file', 'application')
 """
 
 class ApplicationInfoAdmin(admin.ModelAdmin):
@@ -20,7 +20,7 @@ admin.site.register(ApplicationInfo, ApplicationInfoAdmin)
 
 class DataverseTokenAdmin(admin.ModelAdmin):
     save_on_top = True
-    list_display = ('dataverse_user', 'single_file', 'application', 'last_refresh_time', 'file_metadata', 'token', 'update_time' )
+    list_display = ('dataverse_user', 'data_file', 'application', 'last_refresh_time', 'file_metadata', 'token', 'update_time' )
     list_filter = ('application', )    
     readonly_fields = ('update_time', 'create_time', 'token', 'file_metadata' )
 admin.site.register(DataverseToken, DataverseTokenAdmin)

@@ -36,8 +36,6 @@ TEMPLATE_DIRS = (
 #    "/home/html/templates/lawrence.com",
 #    "/home/html/templates/default",
 )
-print 'TEMPLATE_DIRS', TEMPLATE_DIRS
-# Application definition
 
 INSTALLED_APPS = config.INSTALLED_APPS
 

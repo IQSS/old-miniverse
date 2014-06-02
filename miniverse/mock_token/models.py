@@ -2,7 +2,7 @@ from hashlib import md5, sha224
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.db import models
-from dataset.models import SingleFile
+from dataset.models import DataFile
 from datetime import date, datetime
 from django.utils.timezone import utc
 from django.contrib.auth.models import User
@@ -59,7 +59,7 @@ class DataverseToken(models.Model):
     application = models.ForeignKey(ApplicationInfo)
 
     dataverse_user = models.ForeignKey(User)
-    single_file = models.ForeignKey(SingleFile)
+    data_file = models.ForeignKey(DataFile)
     
     has_expired = models.BooleanField(default=False)
     #dataset_version = models.IntegerField()
@@ -70,7 +70,7 @@ class DataverseToken(models.Model):
     create_time = models.DateTimeField(auto_now_add=True)
 
     def __unicode__(self):
-        return '%s (%s)' % (self.dataverse_user, self.single_file)
+        return '%s (%s)' % (self.dataverse_user, self.data_file)
 
 
     def has_token_expired(self, current_time=None):
@@ -108,36 +108,36 @@ class DataverseToken(models.Model):
             super(DataverseToken, self).save(*args, **kwargs)
         
         if not self.token:
-            self.token = sha224('[id:%s][sf:%s]' % (self.id, self.single_file.md5)).hexdigest()
+            self.token = sha224('[id:%s][sf:%s]' % (self.id, self.data_file.md5)).hexdigest()
 
         super(DataverseToken, self).save(*args, **kwargs)
     
     def get_mapit_link_with_token(self, request):
-        #metadata_url = reverse('view_single_file_metadata', kwargs={'dv_token' : self.token})
+        #metadata_url = reverse('view_data_file_metadata', kwargs={'dv_token' : self.token})
         
         d = {}
-        metadata_url = reverse('view_single_file_metadata_base_url', kwargs={})
+        metadata_url = reverse('view_data_file_metadata_base_url', kwargs={})
         d['cb'] = request.build_absolute_uri(metadata_url) #request.get_host()
         callback_url = urllib.urlencode(d)
         return self.application.mapit_link + '%s/?%s' % (self.token, callback_url)
     
     def file_metadata(self):
-        lnk = reverse('view_single_file_metadata', kwargs={ 'dv_token' : self.token })
+        lnk = reverse('view_data_file_metadata', kwargs={ 'dv_token' : self.token })
         return '<a href="%s">metadata api</a>' % lnk
     file_metadata.allow_tags = True
     
     @staticmethod
-    def get_new_token(user, application, single_file):
+    def get_new_token(user, application, data_file):
         if user is None:
             raise Exception('no user') 
         if application is None:
             raise Exception('no application') 
-        if single_file is None:
-            raise Exception('no single_file_id') 
+        if data_file is None:
+            raise Exception('no data_file_id') 
 
         dv_token = DataverseToken(application=application\
                                 , dataverse_user=user\
-                                , single_file=single_file\
+                                , data_file=data_file\
                                 )
         dv_token.save()
         

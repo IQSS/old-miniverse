@@ -13,7 +13,7 @@
 		<td class="text-right">
 			<a href="{% url 'view_map_it' f.md5 %}" class="btn btn-xs btn-default">meta</a>
 			&nbsp;
-			{% if f.has_gis_data %}<a href="{% url 'view_geoconnect_map_it' f.md5 %}?cb={% url 'view_single_file_metadata_base_url' %}" xstyle="text-decoration:none;" target="mapit" class="btn btn-success btn-xs">Map It!</a>
+			{% if f.has_gis_data %}<a href="{% url 'view_geoconnect_map_it' f.md5 %}?cb={% url 'view_data_file_metadata_base_url' %}" xstyle="text-decoration:none;" target="mapit" class="btn btn-success btn-xs">Map It!</a>
 			{% endif %}
 			</td>
 		<td class="text-center">{{ f.create_time|date:"M j, Y  P" }}</td>

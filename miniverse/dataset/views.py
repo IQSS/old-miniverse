@@ -7,7 +7,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
 
-from dataset.models import Dataset, SingleFile
+from dataset.models import Dataset, DataFile
 from dataset.mapit_metadata_helper import MetadataHelper
 from mock_token.models import DataverseToken, ApplicationInfo
 
@@ -25,28 +25,28 @@ def view_dataset_list(request):
     
     # Temp while figuring out steps
     d['datasets'] =  datasets
-    d['file_count'] = SingleFile.objects.all().count()
-    d['gis_file_count'] = SingleFile.objects.filter(has_gis_data=True).count()
+    d['file_count'] = DataFile.objects.all().count()
+    d['gis_file_count'] = DataFile.objects.filter(has_gis_data=True).count()
 
     return render_to_response('view_dataset_list.html', d\
                                 , context_instance=RequestContext(request))
     
-def view_geoconnect_map_it(request, single_file_md5):
+def view_geoconnect_map_it(request, data_file_md5):
     """Create a DataverseToken and send it to GeoConnect
     """
     if not request.user.is_authenticated():
         return HttpResponse('Please log in to use the "Map It" link')
     try: 
-        sf = SingleFile.objects.select_related('dataset').get(md5=single_file_md5)
-    except SingleFile.DoesNotExist:
-        return Http404('file not found for: %s' % single_file_md5)
+        sf = DataFile.objects.select_related('dataset').get(md5=data_file_md5)
+    except DataFile.DoesNotExist:
+        return Http404('file not found for: %s' % data_file_md5)
 
     app_info = ApplicationInfo.objects.get(name='GeoConnect Harvard')
     
     # Does the user have an existing token?
     tokens = DataverseToken.objects.filter(application=app_info\
                                             , dataverse_user=request.user\
-                                            , single_file=sf)
+                                            , data_file=sf)
     
     # Are any of these tokens active?                
     tokens = [t for t in tokens if not t.has_token_expired()]
@@ -63,13 +63,13 @@ def view_geoconnect_map_it(request, single_file_md5):
 
 
 
-def view_map_it(request, single_file_md5):
-    #return HttpResponse('single_file_id: %s' % single_file_md5)
+def view_map_it(request, data_file_md5):
+    #return HttpResponse('data_file_id: %s' % data_file_md5)
     
     try: 
-        sf = SingleFile.objects.select_related('dataset', 'dataset__dataverse').get(md5=single_file_md5)
-    except SingleFile.DoesNotExist:
-        return Http404('file not found for: %s' % single_file_md5)
+        sf = DataFile.objects.select_related('dataset', 'dataset__dataverse').get(md5=data_file_md5)
+    except DataFile.DoesNotExist:
+        return Http404('file not found for: %s' % data_file_md5)
 
     json_info = MetadataHelper.get_singlefile_metadata(sf, request, as_json=True)
     if json_info is None:

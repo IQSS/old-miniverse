@@ -5,9 +5,10 @@
     "fields": {
         "update_time": "2014-05-12T15:05:08.103Z", 
         "name": "Boston Income data", 
-        "metadata_text": "", 
+        "description": "", 
         "create_time": "2014-05-06T12:08:46.625Z", 
         "dataverse": 1, 
+        "version_number":1,
         "md5": "648dc48ccf9d632cb4ab26048603cc0a"
     }
 },
@@ -17,9 +18,10 @@
     "fields": {
         "update_time": "2014-05-08T20:02:11.428Z", 
         "name": "China Energy", 
-        "metadata_text": "", 
+        "description": "", 
         "create_time": "2014-05-07T20:05:33.836Z", 
         "dataverse": 5, 
+        "version_number":1,
         "md5": "26d28bdf72c6d188bc6b83cbcd230451"
     }
 }

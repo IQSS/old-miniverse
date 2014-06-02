@@ -6,7 +6,7 @@ from django.utils.timezone import utc
 
 from miniverse.util.msg_util import *
 from dataverse.models import Dataverse
-from dataset.models import SingleFile, Dataset
+from dataset.models import DataFile, Dataset
 from mock_token.models import ApplicationInfo, DataverseToken
 # Create your tests here.
 
@@ -20,11 +20,11 @@ class TokenTestCase(TestCase):
     def setUp(self):
         pass
         #self.dataset = Dataset.objects.get(pk=1)
-        #self.single_file = SingleFile(dataset=dataset\
+        #self.data_file = DataFile(dataset=dataset\
         #                    , has_gis_data=False\
         #                    , dataset_file=SimpleUploadedFile('one_text.txt', 'these are the file contents!')\
         #                    )
-        #self.single_file.save()
+        #self.data_file.save()
         
 
     def test_elapsed_times(self):
@@ -35,7 +35,7 @@ class TokenTestCase(TestCase):
             print app
 
         dataset = Dataset.objects.get(pk=1)
-        sf = SingleFile(dataset=dataset\
+        sf = DataFile(dataset=dataset\
                         , has_gis_data=False\
                         , dataset_file=SimpleUploadedFile('one_text.txt', 'these are the file contents!')\
                     )
@@ -45,7 +45,7 @@ class TokenTestCase(TestCase):
         app_info = ApplicationInfo.objects.get(pk=1)
         dv_token = DataverseToken.get_new_token(user=sf.dataset.dataverse.owner\
                                             , application=app_info\
-                                            , single_file=sf)
+                                            , data_file=sf)
         
         #------------------------------------------
         msgt('token limit for application: [seconds:%s] [minutes:%s]' \
@@ -77,7 +77,7 @@ class TokenTestCase(TestCase):
         
         
         
-        #self.single_file.save()
+        #self.data_file.save()
         #lion = Animal.objects.get(name="lion")
         #cat = Animal.objects.get(name="cat")
         #self.assertEqual(lion.speak(), 'The lion says "roar"')

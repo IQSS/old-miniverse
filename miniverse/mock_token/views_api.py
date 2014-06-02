@@ -6,11 +6,11 @@ from miniverse_util.json_util import get_json_err, get_json_success
 from dataset.mapit_metadata_helper import MetadataHelper
 import json
 
-def view_single_file_metadata_base_url(request):
+def view_data_file_metadata_base_url(request):
     # place holder in urls file
     raise Http404('not found')
     
-def view_single_file_metadata(request, dv_token):
+def view_data_file_metadata(request, dv_token):
     
     if dv_token is None:
         raise Http404('no token')
@@ -25,7 +25,7 @@ def view_single_file_metadata(request, dv_token):
         print 'json_info', json_info
         return HttpResponse(json_info, content_type="application/json")
    
-    json_info = MetadataHelper.get_singlefile_metadata(dv_token.single_file, request)
+    json_info = MetadataHelper.get_singlefile_metadata(dv_token.data_file, request)
     
     return HttpResponse(json_info, content_type="application/json")
    

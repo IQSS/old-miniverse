@@ -16,13 +16,26 @@ class Dataverse(models.Model):
     
     owner = models.ForeignKey(User)
     
-    metadata_text = models.TextField(blank=True)
+    description = models.TextField(blank=True)
         
     md5 = models.CharField(max_length=40, blank=True, db_index=True, help_text='auto-filled on save')
     
     update_time = models.DateTimeField(auto_now=True)
     create_time = models.DateTimeField(auto_now_add=True)
-        
+    
+    def get_dv_api_params(self):
+        """
+        Params to respond to API call from GeoConnect
+        """
+        if not self.id:
+            return {}
+
+        return { 'dv_id' : self.id\
+                , 'dv_name' : self.name\
+                , 'dv_user_id' : self.owner.id\
+                , 'dv_user_email' : self.owner.email\
+                , 'dv_username' : self.owner.username\
+                }
         
     def breadcrumb(self):
         if not self.id or not self.parent_dataverse:

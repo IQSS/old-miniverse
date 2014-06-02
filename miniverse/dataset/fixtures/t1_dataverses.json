@@ -6,7 +6,7 @@
         "update_time": "2014-05-06T11:36:41.463Z", 
         "name": "Boston Dataverse", 
         "parent_dataverse": 2, 
-        "metadata_text": "", 
+        "description": "", 
         "create_time": "2014-05-06T11:35:59.347Z", 
         "owner": 1, 
         "md5": "c46fc58c8192be475dfa49c9901ad5dc"
@@ -19,7 +19,7 @@
         "update_time": "2014-05-06T11:44:13.814Z", 
         "name": "Root Dataverse", 
         "parent_dataverse": null, 
-        "metadata_text": "", 
+        "description": "", 
         "create_time": "2014-05-06T11:36:23.408Z", 
         "owner": 1, 
         "md5": "32f49cb796bc6bea72d56e721c4a7e36"
@@ -32,7 +32,7 @@
         "update_time": "2014-05-06T11:42:00.732Z", 
         "name": "New York City", 
         "parent_dataverse": 2, 
-        "metadata_text": "", 
+        "description": "", 
         "create_time": "2014-05-06T11:42:00.732Z", 
         "owner": 1, 
         "md5": "8d9d647389c649fd98908b7313303180"
@@ -45,7 +45,7 @@
         "update_time": "2014-05-06T11:43:54.703Z", 
         "name": "Jamaica Plain", 
         "parent_dataverse": 1, 
-        "metadata_text": "", 
+        "description": "", 
         "create_time": "2014-05-06T11:43:54.702Z", 
         "owner": 1, 
         "md5": "e2c1a5191e6e26b1a9a42211b4879557"
@@ -58,7 +58,7 @@
         "update_time": "2014-05-07T20:05:13.888Z", 
         "name": "China", 
         "parent_dataverse": 2, 
-        "metadata_text": "", 
+        "description": "", 
         "create_time": "2014-05-07T20:05:13.887Z", 
         "owner": 1, 
         "md5": "3e032f8928b9bb5e347eed66fd0b5cbe"
