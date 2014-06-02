@@ -1,5 +1,5 @@
 import json
-from miniverse.util.json_util import get_json_err, get_json_success
+from miniverse_util.json_util import get_json_err, get_json_success
 
 class MetadataHelper:
     

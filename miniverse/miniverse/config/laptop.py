@@ -2,6 +2,7 @@ import os
 
 
 PROJECT_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), )
+TEST_SETUP_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '../../', 'test_setup' )
 
 DEBUG = True
 
@@ -9,14 +10,12 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = []
 
-#TEMPLATE_DIRS = ( os.path.join(PROJECT_DIR, 'templates')\
-#                , os.path.join(PROJECT_DIR,  '../gis_shapefiles', 'templates')\
-#                )
+
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(PROJECT_DIR, '../testdb/miniverse_db1.sqlite3'),
+        'NAME': os.path.join(TEST_SETUP_DIR, 'testdb' , 'miniverse_db1.sqlite3'),
     }
 }
 
@@ -33,11 +32,11 @@ SESSION_COOKIE_NAME = 'miniverse_dev'
 # Needs to be writable by application
 # Cleaned out by cron job
 #
-MEDIA_ROOT = os.path.join(PROJECT_DIR, 'media_root' )
+MEDIA_ROOT = os.path.join(TEST_SETUP_DIR, 'media_root' )
 MEDIA_URL = '/media/'
 
 STATICFILES_DIRS = (os.path.join(PROJECT_DIR, "static") ,)  # original file source
-STATIC_ROOT = os.path.join(PROJECT_DIR, 'static_root') # where files gathered and served from
+STATIC_ROOT = os.path.join(TEST_SETUP_DIR, 'static_root') # where files gathered and served from
 STATIC_URL = '/static/' # url for static files
 
 INSTALLED_APPS = (

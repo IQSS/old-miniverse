@@ -32,11 +32,11 @@ ALLOWED_HOSTS = config.ALLOWED_HOSTS
 
 #TEMPLATE_DIRS = config.TEMPLATE_DIRS
 TEMPLATE_DIRS = (
-    os.path.join(BASE_DIR, 'miniverse', 'templates'),
+    os.path.join(BASE_DIR,  'templates'),
 #    "/home/html/templates/lawrence.com",
 #    "/home/html/templates/default",
 )
-
+print 'TEMPLATE_DIRS', TEMPLATE_DIRS
 # Application definition
 
 INSTALLED_APPS = config.INSTALLED_APPS

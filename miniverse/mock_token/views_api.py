@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 
 from mock_token.models import DataverseToken
-from miniverse.util.json_util import get_json_err, get_json_success
+from miniverse_util.json_util import get_json_err, get_json_success
 from dataset.mapit_metadata_helper import MetadataHelper
 import json
 
