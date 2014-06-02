@@ -51,6 +51,7 @@ INSTALLED_APPS = (
     
     'dataverse',
     'dataset',
+    'metadata',
     'mock_token',
 
 )
