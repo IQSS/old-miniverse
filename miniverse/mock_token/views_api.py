@@ -11,7 +11,11 @@ def view_data_file_metadata_base_url(request):
     raise Http404('not found')
     
 def view_data_file_metadata(request, dv_token):
+    """
+    Given a valid token, return metadata about a single datafile
     
+    :rtype: JSON
+    """
     if dv_token is None:
         raise Http404('no token')
         
@@ -22,7 +26,6 @@ def view_data_file_metadata(request, dv_token):
         
     if dv_token.has_token_expired():
         json_info = get_json_err('The token has expired.  Please log into dataverse again.')
-        print 'json_info', json_info
         return HttpResponse(json_info, content_type="application/json")
    
     json_info = MetadataHelper.get_singlefile_metadata(dv_token.data_file, request)

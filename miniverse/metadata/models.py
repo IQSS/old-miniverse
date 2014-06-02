@@ -4,7 +4,7 @@ from dataset.models import Dataset
 from core.models import TimeStampedModel
 
 # Create your models here.
-class MetaDataBase(TimeStampedModel):
+class MetadataBase(TimeStampedModel):
     
     dataset = models.ForeignKey(Dataset)
     
@@ -16,34 +16,30 @@ class MetaDataBase(TimeStampedModel):
     def __unicode__(self):
         return '%s' % self.dataset
         
-    def save(self, *args, **kwargs):
-    
-        #self.metadata_type = self.__class__.__name__
-
-        super(GeographicMetadata, self).save(args, kwargs)
-
     class Meta:
         ordering = ('-modified', 'dataset')
         
        
         
-class GeographicMetadata(MetaDataBase):
+class GeographicMetadata(MetadataBase):
     """
     Metadata regarding a related WorldMap Layer
     """
-    layer_name = models.CharField(max_length=255)
+    layer_name = models.CharField(max_length=255, unique=True, db_index=True)
     layer_link = models.URLField()
     embed_map_link = models.URLField(blank=True)
     worldmap_username = models.CharField(max_length=255)
     
-    bbox_min_lng = models.DecimalField(max_digits=12, decimal_places=10, default=-1)
-    bbox_min_lat = models.DecimalField(max_digits=12, decimal_places=10, default=-1)
-    bbox_max_lng = models.DecimalField(max_digits=12, decimal_places=10, default=-1)
-    bbox_max_lat = models.DecimalField(max_digits=12, decimal_places=10, default=-1)
+    bbox_min_lng = models.DecimalField(max_digits=12, decimal_places=7, default=0)
+    bbox_min_lat = models.DecimalField(max_digits=12, decimal_places=7, default=0)
+    bbox_max_lng = models.DecimalField(max_digits=12, decimal_places=7, default=0)
+    bbox_max_lat = models.DecimalField(max_digits=12, decimal_places=7, default=0)
     
     def save(self, *args, **kwargs):
     
         self.metadata_type = self.__class__.__name__
 
-        super(GeographicMetadata, self).save(args, kwargs)
+        super(GeographicMetadata, self).save(*args, **kwargs)
     
+    class Meta:
+        verbose_name_plural = 'Geographic metadata'

@@ -15,3 +15,8 @@ urlpatterns = patterns('mock_token.views_api',
 
     #url(r'^view-shp/(?P<shp_md5>\w{32})/$', 'view_choose_shapefile', name="view_choose_shapefile"),
 )
+
+urlpatterns += patterns('mock_token.views_write_api',
+
+    url(r'^singlefile/update-gis-metadata/?$', 'view_update_gis_metadata', name="view_update_gis_metadata"),
+)

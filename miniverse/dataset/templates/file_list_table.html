@@ -18,6 +18,17 @@
 			</td>
 		<td class="text-center">{{ f.create_time|date:"M j, Y  P" }}</td>
 	</tr>
+	{% if ds.geo_metadata %}
+	<tr>
+		<td colspan="4">
+			<ul>
+				<li>{{ ds.geo_metadata.layer_name }}</li>
+				<li><a href="{{ ds.geo_metadata.layer_link }}">view on WorldMap</a></li>
+			</ul>
+			<iframe src="{{ ds.geo_metadata.embed_map_link }}" width="350" height="200"></iframe>
+		</td>
+	</tr>
+	{% endif %}
 {% empty %}
 	<tr>
 		<td colspan="5"><i>No files available</i></td>

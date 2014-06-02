@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 
 from dataset.models import Dataset, DataFile
 from dataset.mapit_metadata_helper import MetadataHelper
+from metadata.models import GeographicMetadata
+
 from mock_token.models import DataverseToken, ApplicationInfo
 
 import json
@@ -21,10 +23,24 @@ logger = logging.getLogger(__name__)
 def view_dataset_list(request):
 
     d = { 'page_title' : 'Dataset list' }
+    
+    # Pull geographic metadata and place in dict { dataset id : GeographicMetadata }
+    #
+    geo_metadata = GeographicMetadata.objects.select_related('dataset').all()
+    gm_dict = {}
+    for gm in geo_metadata:
+        gm_dict[gm.dataset.id] = gm
+    
+    # Pull datasets and attach geographic metadata, if available
+    #
     datasets = Dataset.objects.select_related('dataverse').all()
+    datasets_updated = []
+    for da in datasets:
+        da.geo_metadata = gm_dict.get(da.id, None)
+        datasets_updated.append(da)
     
     # Temp while figuring out steps
-    d['datasets'] =  datasets
+    d['datasets'] =  datasets_updated
     d['file_count'] = DataFile.objects.all().count()
     d['gis_file_count'] = DataFile.objects.filter(has_gis_data=True).count()
 
