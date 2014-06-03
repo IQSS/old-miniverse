@@ -7,6 +7,11 @@ def get_json_err(err_msg):
     d['message'] = err_msg
     return json.dumps(d)
     
+def get_json_success_msg(msg):
+    d = { 'status' : 'success'\
+        , 'message' : msg\
+        }
+    return json.dumps(d)
     
 def get_json_success(data_dict):
     d = {}

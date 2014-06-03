@@ -25,6 +25,10 @@ SECRET_KEY = 'o$qugz7!d7=l=qm7=*74jcp0ewudl*-povd=w2x^@3$rw*(qa7'
 
 ROOT_URLCONF = 'miniverse.urls_test'
 
+SITE_ID = 1
+
+LOGIN_URL = 'admin:index'
+
 SESSION_COOKIE_NAME = 'miniverse_dev'
 
 # Used for working with GIS files

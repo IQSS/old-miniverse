@@ -6,6 +6,7 @@ from django.shortcuts import render_to_response
 from django.http import HttpResponseRedirect, HttpResponse
 from django.template import RequestContext
 from django.core.urlresolvers import reverse
+from django.contrib.auth.decorators import login_required
 
 from dataset.models import Dataset, DataFile
 from dataset.mapit_metadata_helper import MetadataHelper
@@ -19,7 +20,7 @@ from django.http import Http404
 import logging
 logger = logging.getLogger(__name__)
 
-# Create your views here.
+@login_required
 def view_dataset_list(request):
 
     d = { 'page_title' : 'Dataset list' }
@@ -46,7 +47,9 @@ def view_dataset_list(request):
 
     return render_to_response('view_dataset_list.html', d\
                                 , context_instance=RequestContext(request))
-    
+
+
+@login_required
 def view_geoconnect_map_it(request, data_file_md5):
     """Create a DataverseToken and send it to GeoConnect
     """

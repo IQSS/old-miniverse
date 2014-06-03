@@ -4,7 +4,7 @@ from django.core.files.uploadedfile import SimpleUploadedFile
 from datetime import datetime, timedelta
 from django.utils.timezone import utc
 
-from miniverse.util.msg_util import *
+from miniverse_util.msg_util import *
 from dataverse.models import Dataverse
 from dataset.models import DataFile, Dataset
 from mock_token.models import ApplicationInfo, DataverseToken
@@ -62,8 +62,8 @@ class TokenTestCase(TestCase):
         self.assertEqual(dv_token.has_token_expired(twent_minutes_elapsed), False)
 
         #------------------------------------------
-        msgt('check 3 - fresh token, ELAPSED, 30 minutes + some milliseconds')
-        thirty_min_elapsed = test_time + timedelta(minutes=+30)
+        msgt('check 3 - fresh token, ELAPSED, 31 minutes')
+        thirty_min_elapsed = test_time + timedelta(minutes=+31)
         msg('test time %s' % thirty_min_elapsed)
         self.assertEqual(dv_token.has_token_expired(thirty_min_elapsed), True)
         

@@ -53,6 +53,9 @@ ROOT_URLCONF = config.ROOT_URLCONF
 
 WSGI_APPLICATION = 'miniverse.wsgi.application'
 
+SITE_ID = config.SITE_ID
+
+LOGIN_URL = config.LOGIN_URL
 
 # Database
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
