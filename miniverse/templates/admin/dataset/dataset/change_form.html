@@ -1,0 +1,10 @@
+{% extends "admin/change_form.html" %}
+
+
+
+{% block breadcrumbs %}
+{{ block.super }}
+<div style="padding:10px; margin:10px; border:1px solid #006699; width:300px;">
+	<a href="{% url 'view_dataset_list' %}">&gt; View Datasets</a>
+</div>
+{% endblock %}
