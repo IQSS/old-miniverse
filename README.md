@@ -19,4 +19,4 @@ Run on Port 8090
 
 Djanog admin file upload and a single page for linking to "GeoConnect" or viewing the type of metadata that a token can access.
 	
-![Miniverse screenshot](miniverse/miniverse/static/images/miniverse_screenshot.png?raw=true "File Listing")
+![Miniverse screenshot](/miniverse/static/images/miniverse_screenshot.png?raw=true "File Listing")
