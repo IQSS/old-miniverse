@@ -21,7 +21,7 @@ class DatasetAdmin(admin.ModelAdmin):
     search_fields = ('name',  )
     list_filter = ('dataverse', )    
     readonly_fields = ('update_time', 'create_time', 'md5', 'view_dataset_list')
-    list_display = ('name', 'dataverse', 'view_dataset_list', 'description', 'update_time' )
+    list_display = ('name', 'dataverse','description',  'view_dataset_list', 'update_time' )
 admin.site.register(Dataset, DatasetAdmin)
 
 class DataFileAdmin(admin.ModelAdmin):
