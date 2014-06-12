@@ -1,6 +1,7 @@
 miniverse/miniverse/config/laptop_settings.py
 miniverse/miniverse/config/prod.py
 test_setup/*
+env/*
 miniverse/miniverse/media_root/*
 miniverse/testdb/*
 # Byte-compiled / optimized / DLL files
