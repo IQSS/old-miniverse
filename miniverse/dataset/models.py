@@ -1,25 +1,53 @@
 import os
 from hashlib import md5
+
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.db import models
-from dataverse.models import Dataverse
+from django.template.defaultfilters import slugify
 
-class Dataset(models.Model):
+from dataverse.models import Dataverse
+from core.models import TimeStampedModel
+
+
+class DatasetState(models.Model):
+    """
+    Version states for the DatasetVersion object
+    DRAFT, IN REVIEW, RELEASED, ARCHIVED, DEACCESSIONED
+    
+    """    
+    name = models.CharField(max_length=70)
+    sort_order = models.IntegerField()
+    slug = models.SlugField(blank=True)
+    
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(DatasetState, self).save(*args, **kwargs)
+        
+        
+    def __unicode__(self):
+        return self.name
+        
+    class Meta:
+        ordering = ('sort_order', 'name',)
+        
+
+class Dataset(TimeStampedModel):
     """Expects a .zip file upload
     Modify in the future for shapefiles loaded separately
     """
     name = models.CharField(max_length=255)
     dataverse = models.ForeignKey(Dataverse)
 
-    version_number = models.IntegerField(default=1)
+    version_state = models.ForeignKey(DatasetState)
+    
+    version_number =  models.IntegerField(default=1)
+    minor_version_number = models.IntegerField(default=0)
     
     description = models.TextField(blank=True)
         
     md5 = models.CharField(max_length=40, blank=True, db_index=True, help_text='auto-filled on save')
     
-    update_time = models.DateTimeField(auto_now=True)
-    create_time = models.DateTimeField(auto_now_add=True)
     
     def get_dv_api_params(self):
         if not self.id:
@@ -58,8 +86,9 @@ class Dataset(models.Model):
         ordering = ('name',  )
         #verbose_name = 'COA File Load Log'
 
-     
-class DataFile(models.Model):
+        
+    
+class DataFile(TimeStampedModel):
     """Used for working with a selected shapefile, specifically using the extensions specified in WORLDMAP_MANDATORY_IMPORT_EXTENSIONS
     
     """
@@ -74,8 +103,6 @@ class DataFile(models.Model):
     
     md5 = models.CharField(max_length=40, blank=True, db_index=True, help_text='auto-filled on save')
     
-    update_time = models.DateTimeField(auto_now=True)
-    create_time = models.DateTimeField(auto_now_add=True)
 
     def get_dv_api_params(self, request=None):
         """
@@ -90,7 +117,7 @@ class DataFile(models.Model):
                 #, 'has_gis_data' : self.has_gis_data
                 ,'filename' : self.get_basename()\
                 ,'filesize' : self.dataset_file.size\
-                ,'created' : str(self.create_time)\
+                ,'created' : str(self.created)\
                 ,'datafile_type': '--file-type--'\
                 ,'datafile_expected_md5_checksum': self.file_checksum\
             }        

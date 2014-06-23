@@ -14,10 +14,10 @@ class GeographicMetadataUpdateForm(forms.Form):
     embed_map_link = forms.URLField(required=False)    
     worldmap_username = forms.CharField()
 
-    #bbox_min_lng = forms.DecimalField()
-    #bbox_min_lat = forms.DecimalField()
-    #bbox_max_lng = forms.DecimalField()
-    #bbox_max_lat = forms.DecimalField()
+    bbox_min_lng = forms.DecimalField(required=False)
+    bbox_min_lat = forms.DecimalField(required=False)
+    bbox_max_lng = forms.DecimalField(required=False)
+    bbox_max_lat = forms.DecimalField(required=False)
 
 
     def save_metadata(self):

@@ -24,7 +24,7 @@ class MetadataHelper:
                ,'dataset_file_location' : request.build_absolute_uri(data_file.dataset_file.url)\
                ,'filename' : data_file.get_basename()\
                ,'filesize' : data_file.dataset_file.size\
-               ,'create_time' : str(data_file.create_time)\
+               ,'create_time' : str(data_file.created)\
                ,'dv_username' : data_file.dataset.dataverse.owner.username
                }
         """

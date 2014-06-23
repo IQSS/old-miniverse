@@ -1,0 +1,47 @@
+[
+{
+    "pk": 1, 
+    "model": "dataset.datasetstate", 
+    "fields": {
+        "sort_order": 1, 
+        "name": "DRAFT", 
+        "slug": "draft"
+    }
+},
+{
+    "pk": 2, 
+    "model": "dataset.datasetstate", 
+    "fields": {
+        "sort_order": 2, 
+        "name": "IN REVIEW", 
+        "slug": "in-review"
+    }
+},
+{
+    "pk": 3, 
+    "model": "dataset.datasetstate", 
+    "fields": {
+        "sort_order": 3, 
+        "name": "RELEASED", 
+        "slug": "released"
+    }
+},
+{
+    "pk": 4, 
+    "model": "dataset.datasetstate", 
+    "fields": {
+        "sort_order": 4, 
+        "name": "ARCHIVED", 
+        "slug": "archived"
+    }
+},
+{
+    "pk": 5, 
+    "model": "dataset.datasetstate", 
+    "fields": {
+        "sort_order": 5, 
+        "name": "DEACCESSIONED", 
+        "slug": "deaccessioned"
+    }
+}
+]
