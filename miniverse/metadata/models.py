@@ -30,10 +30,10 @@ class GeographicMetadata(MetadataBase):
     embed_map_link = models.URLField(blank=True)
     worldmap_username = models.CharField(max_length=255)
     
-    bbox_min_lng = models.DecimalField(max_digits=12, decimal_places=7, default=0)
-    bbox_min_lat = models.DecimalField(max_digits=12, decimal_places=7, default=0)
-    bbox_max_lng = models.DecimalField(max_digits=12, decimal_places=7, default=0)
-    bbox_max_lat = models.DecimalField(max_digits=12, decimal_places=7, default=0)
+    bbox_min_lng = models.DecimalField(max_digits=14, decimal_places=7, default=0)
+    bbox_min_lat = models.DecimalField(max_digits=14, decimal_places=7, default=0)
+    bbox_max_lng = models.DecimalField(max_digits=14, decimal_places=7, default=0)
+    bbox_max_lat = models.DecimalField(max_digits=14, decimal_places=7, default=0)
     
     def save(self, *args, **kwargs):
     
