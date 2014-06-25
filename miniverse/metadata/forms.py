@@ -1,13 +1,13 @@
 from django import forms
 
-from dataset.models import Dataset
+from dataset.models import DataFile
 
 from mock_token.models import DataverseToken
 from metadata.models import GeographicMetadata
 #token = models.CharField(max_length=255, blank=True, help_text = 'auto-filled on save', db_index=True)
 
 class GeographicMetadataUpdateForm(forms.Form):
-    dataset_id = forms.IntegerField()
+    datafile_id = forms.IntegerField()
 
     layer_name = forms.CharField()
     layer_link = forms.URLField()
@@ -28,12 +28,12 @@ class GeographicMetadataUpdateForm(forms.Form):
             raise Exception('Attempt save metadata on invalid form')
         
         try:    
-            dataset = Dataset.objects.get(pk=self.cleaned_data['dataset_id'])
-        except Dataset.DoesNotExist:
+            datafile = DataFile.objects.get(pk=self.cleaned_data['datafile_id'])
+        except DataFile.DoesNotExist:
             return False
         
         try:
-            geo_meta = GeographicMetadata.objects.get(dataset=dataset\
+            geo_meta = GeographicMetadata.objects.get(datafile=datafile\
                                             , layer_name=self.cleaned_data['layer_name'])
             return True
         except GeographicMetadata.DoesNotExist:
@@ -42,7 +42,7 @@ class GeographicMetadataUpdateForm(forms.Form):
         clean_metadata = self.cleaned_data.copy()    
         
         geo_meta = GeographicMetadata(**clean_metadata)
-        geo_meta.dataset = dataset
+        geo_meta.datafile = datafile
         geo_meta.save()
         return True
     

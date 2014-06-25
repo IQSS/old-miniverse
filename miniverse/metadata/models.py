@@ -1,23 +1,19 @@
 from django.db import models
 
-from dataset.models import Dataset
+from dataset.models import DataFile
 from core.models import TimeStampedModel
 
 # Create your models here.
 class MetadataBase(TimeStampedModel):
     
-    dataset = models.ForeignKey(Dataset)
-    
-    metadata_type = models.CharField(max_length=255, blank=True, help_text='auto-filled on save')
-
-    def get_type(self):
-        return self.__class__.__name__
+    datafile = models.ForeignKey(DataFile)
         
     def __unicode__(self):
-        return '%s' % self.dataset
+        return '%s' % self.datafile
         
     class Meta:
-        ordering = ('-modified', 'dataset')
+        abstract=True
+        ordering = ('-modified', 'datafile')
         
        
         
@@ -35,11 +31,8 @@ class GeographicMetadata(MetadataBase):
     bbox_max_lng = models.DecimalField(max_digits=14, decimal_places=7, default=0)
     bbox_max_lat = models.DecimalField(max_digits=14, decimal_places=7, default=0)
     
-    def save(self, *args, **kwargs):
-    
-        self.metadata_type = self.__class__.__name__
-
-        super(GeographicMetadata, self).save(*args, **kwargs)
+    #def save(self, *args, **kwargs):
+    #    super(GeographicMetadata, self).save(*args, **kwargs)
     
     class Meta:
         verbose_name_plural = 'Geographic metadata'

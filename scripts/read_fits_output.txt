@@ -1,13 +1,13 @@
 ------------------------------------------------------------
 HDU Summary
-----------------------------------------
+------------------------------------------------------------
 Filename: FITS_test/PerA_HI21cmGBT_F.fits
 No.    Name         Type      Cards   Dimensions   Format
 0    PRIMARY     PrimaryHDU     966   (350, 280, 1000, 1)   float32   
 None
 ------------------------------------------------------------
 Iterate through header items (exclude "HISTORY")
-----------------------------------------
+------------------------------------------------------------
 key:[SIMPLE] val:[True]
 key:[BITPIX] val:[-32]
 key:[NAXIS] val:[4]

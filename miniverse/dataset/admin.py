@@ -29,7 +29,7 @@ admin.site.register(DatasetVersion, DatasetVersionAdmin)
 """        
     
 class DatasetAdmin(admin.ModelAdmin):
-    inlines = (DataFileInline, GeographicMetadataInline)
+    inlines = (DataFileInline,)# GeographicMetadataInline)
     save_on_top = True
     search_fields = ('name',  )
     list_filter = ('dataverse', )    

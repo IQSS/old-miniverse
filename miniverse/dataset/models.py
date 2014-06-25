@@ -48,6 +48,8 @@ class Dataset(TimeStampedModel):
         
     md5 = models.CharField(max_length=40, blank=True, db_index=True, help_text='auto-filled on save')
     
+    #def get_geographic_metadata(self):
+    #GeographicMetadata.objects.select_related('datafile').all()
     
     def get_dv_api_params(self):
         if not self.id:
@@ -103,6 +105,9 @@ class DataFile(TimeStampedModel):
     
     md5 = models.CharField(max_length=40, blank=True, db_index=True, help_text='auto-filled on save')
     
+
+    def get_geographic_metadata(self):
+        return self.geographicmetadata_set.all()
 
     def get_dv_api_params(self, request=None):
         """
