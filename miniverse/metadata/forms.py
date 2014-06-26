@@ -9,6 +9,8 @@ from metadata.models import GeographicMetadata
 class GeographicMetadataUpdateForm(forms.Form):
     datafile_id = forms.IntegerField()
 
+    dv_session_token = forms.CharField()
+
     layer_name = forms.CharField()
     layer_link = forms.URLField()
     embed_map_link = forms.URLField(required=False)    
@@ -27,6 +29,15 @@ class GeographicMetadataUpdateForm(forms.Form):
         if not self.is_valid():
             raise Exception('Attempt save metadata on invalid form')
         
+        try:
+            dv_token = DataverseToken.objects.get(token=self.cleaned_data['dv_session_token'])
+        except DataverseToken.DoesNotExist:
+            return False
+            
+        if dv_token.has_token_expired():
+            print 'token expired'
+            return False
+        
         try:    
             datafile = DataFile.objects.get(pk=self.cleaned_data['datafile_id'])
         except DataFile.DoesNotExist:
@@ -40,7 +51,8 @@ class GeographicMetadataUpdateForm(forms.Form):
             pass
         
         clean_metadata = self.cleaned_data.copy()    
-        
+        clean_metadata.pop('dv_session_token')
+            
         geo_meta = GeographicMetadata(**clean_metadata)
         geo_meta.datafile = datafile
         geo_meta.save()

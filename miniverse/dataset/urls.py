@@ -9,6 +9,7 @@ urlpatterns = patterns('dataset.views',
     url(r'^geoconnect_map_it/(?P<data_file_md5>\w{32})/$', 'view_geoconnect_map_it', name='view_geoconnect_map_it'),
 
 
+
     #url(r'^choose2/(?P<shp_md5>\w{32})/(?P<shapefile_base_name>\w{3,90})/$', 'view_03_choose_shapefile_set', name="view_03_choose_shapefile_set"),
 
     #url(r'^view-shp/(?P<shp_md5>\w{32})/$', 'view_choose_shapefile', name="view_choose_shapefile"),

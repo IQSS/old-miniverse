@@ -4,7 +4,7 @@
 		<th>#</th>
 		<th>File name</th>
 		<th>Size</th>
-		<th>Has GIS data?</th>
+		<th>Geospatial data?</th>
 		<th>Upload date</th>
 	</tr>
 {% for f in ds.get_files %}
@@ -12,29 +12,31 @@
 		<td>{{ forloop.counter }}</td>
 		<td>{{ f.get_basename }}</td>
 		<td class="text-right">{{ f.dataset_file.size|readable_filesize }}</td>
-		<td class="text-right">
-			<a href="{% url 'view_map_it' f.md5 %}" class="btn btn-xs btn-default">meta</a>
+		<td class="text-center">
 			&nbsp;
-			{% if f.has_gis_data %}<a href="{% url 'view_geoconnect_map_it' f.md5 %}?cb={% url 'view_data_file_metadata_base_url' %}" xstyle="text-decoration:none;" target="mapit" class="btn btn-success btn-xs">Map It!</a>
+			{% if f.has_gis_data %}<a href="{% url 'view_map_it' f.md5 %}" class="btn btn-xs btn-default">meta</a>
+			
+			<a href="{% url 'view_geoconnect_map_it' f.md5 %}?cb={% url 'view_data_file_metadata_base_url' %}" xstyle="text-decoration:none;" target="mapit" class="btn btn-success btn-xs">Map It!</a>
+			{% else %}No
 			{% endif %}
 			</td>
 		<td class="text-center">{{ f.created|date:"M j, Y  P" }}</td>
 	</tr>
 	{% for geo_metadata in f.get_geographic_metadata %}
 	<tr>
-		<td colspan="5" class="text-center">
-			<br /><iframe src="{{ geo_metadata.embed_map_link }}" width="350" height="200"></iframe>		
-			<br />File visualized on <a href="{{ geo_metadata.layer_link }}">WorldMap</a>
-			<br /><a href="{{ geo_metadata.layer_link }}">View on WorldMap</a>
+		<td colspan="5">
+            <table class="table table-bordered">
+                  <tr>
+                      <td class="text-center">File visualized on <a href="{{ geo_metadata.layer_link }}">WorldMap</a>
+                          <br /><iframe src="{{ geo_metadata.embed_map_link }}" width="350" height="200"></iframe></td>
+                      <td><a href="{{ geo_metadata.layer_link }}">View on WorldMap</a> 
+                        <br /><br /><b>Layer name:</b> {{ geo_metadata.layer_name }}
+                        <br /><b>Worldmap Username:</b> {{ geo_metadata.worldmap_username }}
+                        <br /><br /><a href="{% url 'admin:metadata_geographicmetadata_change' geo_metadata.id %}">edit metadata</a>
+                        </td>
+                    </tr>
+            </table>
 		</td>
-		<!--
-		<td colspan="2">
-			<ul>
-				Layer name: {{ geo_metadata.layer_name }}</li>
-				<li><a href="{{ geo_metadata.layer_link }}">View on WorldMap</a></li>
-			</ul>			
-		</td>
-		-->
 	</tr>
 		
 	{% endfor %}

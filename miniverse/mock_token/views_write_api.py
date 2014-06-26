@@ -22,6 +22,7 @@ def view_update_gis_metadata(request):
     
     if request.method=='POST':        
         geo_metadata_form = GeographicMetadataUpdateForm(request.POST)
+        print request.POST
         if geo_metadata_form.is_valid():
             if geo_metadata_form.save_metadata():
                 return HttpResponse(get_json_success_msg('The metadata was saved'))

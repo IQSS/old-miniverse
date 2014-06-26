@@ -31,6 +31,7 @@ class GeographicMetadata(MetadataBase):
     bbox_max_lng = models.DecimalField(max_digits=14, decimal_places=7, default=0)
     bbox_max_lat = models.DecimalField(max_digits=14, decimal_places=7, default=0)
     
+    links_working = models.BooleanField(default=True)
     #def save(self, *args, **kwargs):
     #    super(GeographicMetadata, self).save(*args, **kwargs)
     

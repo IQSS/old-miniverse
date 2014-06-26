@@ -17,6 +17,8 @@ urlpatterns = patterns('',
     # url(r'^$', 'miniverse.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
     url(r'^dataset/', include('dataset.urls')),
+    
+    url(r'^metadata/', include('metadata.urls')),
 
     url(r'^geo-api/', include('mock_token.urls')),
 
