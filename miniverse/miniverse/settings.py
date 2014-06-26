@@ -78,6 +78,7 @@ USE_TZ = True
 
 TIME_ZONE = config.TIME_ZONE
 
+INTERNAL_IPS = ('127.0.0.1', )
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 

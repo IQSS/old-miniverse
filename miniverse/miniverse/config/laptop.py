@@ -1,7 +1,7 @@
 import os
 
 
-PROJECT_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), )
+PROJECT_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '../' )
 TEST_SETUP_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), '../../', 'test_setup' )
 
 DEBUG = True

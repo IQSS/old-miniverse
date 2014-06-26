@@ -27,7 +27,7 @@ def view_dataset_list(request):
     
     # Pull geographic metadata and place in dict { dataset id : GeographicMetadata }
     #
-    geo_metadata = GeographicMetadata.objects.select_related('datafile').all()
+    geo_metadata = GeographicMetadata.objects.filter(links_working=True).select_related('datafile__dataset').all()
     gm_dict = {}
     for gm in geo_metadata:
         gm_dict.setdefault(gm.datafile.id, []).append(gm)

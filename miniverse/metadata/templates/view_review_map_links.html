@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% load dataset_extras %}
+
+{% block extra_header %}
+<script>
+
+$(function () {
+   // your code goes here
+   $( "#check_links" ).click(function() {
+       $( "#check_links" ).addClass('disabled');
+       //alert( "Handler for .click() called." );
+       $( "#progress-bar" ).show();
+       
+   });
+});
+$("#ajaxform").submit(function(e)
+{
+    var postData = $(this).serializeArray();
+    var formURL = $(this).attr("action");
+    $.ajax(
+    {
+        url : formURL,
+        type: "POST",
+        data : postData,
+        success:function(data, textStatus, jqXHR)
+        {
+            //data: return data from server
+        },
+        error: function(jqXHR, textStatus, errorThrown)
+        {
+            //if fails     
+        }
+    });
+    e.preventDefault(); //STOP default action
+    e.unbind(); //unbind. to stop multiple form submit.
+});
+$("#ajaxform").submit(); //Submit  the FORM
+</script>
+{% endblock %}
+
+{% block main_container %}
+
+<div>
+    <p><a href="#" class="btn btn-info btn-xs active" id="check_links" role="button">Check Links</a></p>
+    <div class="progress" id="progress-bar" style="display:none;">
+      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:5%;">checking links..
+        <span class="sr-only">60% Complete</span>
+      </div>
+    </div>
+</div>
+<table class="table table-bordered table-condensed">
+ 	<tr>
+ 		<th>#</th>
+ 		<th>WorldMap Links Working?</th>
+ 		<th>Dataverse</th>
+ 		<th>Dataset</th>
+ 		<th>DataFile</th>
+ 		<th>WorldMap Link</th>
+ 		<th>Embedded Map</th>
+ 		<th>Upload date</th>
+ 	</tr>
+{% for ml in links %}
+    <tr>
+        <td><a href="{% url 'admin:metadata_geographicmetadata_change' ml.id %}">{{ forloop.counter }}</a></td>
+        <td>{% if ml.links_working %}<span class="label label-success">Yes</span>
+            {% else %}<span class="label label-danger">No</span>
+            {% endif %}</td>
+        <td>{{ ml.datafile.dataset.dataverse }}</td>
+        <td>{{ ml.datafile.dataset }}</td>
+        <td>{{ ml.datafile }}</td>
+        <td><a href="{{ ml.layer_link|safe }}">worldmap</a></td>
+        <td><iframe width="90" height="90" href="{{ ml.embed_map_link|safe }}"></iframe></td>
+        <td>{{ ml.modified }}</td>
+    <tr>
+{% empty %}
+    <tr>
+        <td colspan="7">no working metadata links found</td>
+    </tr>
+{% endfor %}
+</table>    
+
+{% include "sql_query_debug.html" %}
+
+{% endblock %}

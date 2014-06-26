@@ -27,4 +27,6 @@ urlpatterns = patterns('',
     url(r'^api/', include(v1_api.urls)),
 
     url(r'^admin/', include(admin.site.urls)),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+) + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+
+#+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
