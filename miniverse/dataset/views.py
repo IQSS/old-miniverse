@@ -34,7 +34,7 @@ def view_dataset_list(request):
     
     # Pull datasets and attach geographic metadata, if available
     #
-    datasets = Dataset.objects.select_related('dataverse').all()
+    datasets = Dataset.objects.select_related('dataverse').all().order_by('dataverse')
     datasets_updated = list(datasets)
     #for da in datasets:
     #    da.geo_metadata_list = gm_dict.get(da.id, None)

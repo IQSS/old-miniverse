@@ -107,7 +107,7 @@ class DataFile(TimeStampedModel):
     
 
     def get_geographic_metadata(self):
-        return self.geographicmetadata_set.all()
+        return self.geographicmetadata_set.filter(links_working=True)
 
     def get_dv_api_params(self, request=None):
         """

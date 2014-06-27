@@ -2,51 +2,121 @@
 {% load dataset_extras %}
 
 {% block extra_header %}
+<script type="text/css">
+.spinner {
+  display: inline-block;
+  opacity: 0;
+  width: 0;
+
+  -webkit-transition: opacity 0.25s, width 0.25s;
+  -moz-transition: opacity 0.25s, width 0.25s;
+  -o-transition: opacity 0.25s, width 0.25s;
+  transition: opacity 0.25s, width 0.25s;
+}
+
+.has-spinner.active {
+  cursor:progress;
+}
+
+.has-spinner.active .spinner {
+  opacity: 1;
+  width: auto; /* This doesn't work, just fix for unkown width elements */
+}
+
+.has-spinner.btn-mini.active .spinner {
+    width: 10px;
+}
+
+.has-spinner.btn-small.active .spinner {
+    width: 13px;
+}
+
+.has-spinner.btn.active .spinner {
+    width: 16px;
+}
+
+.has-spinner.btn-large.active .spinner {
+    width: 19px;
+}
+</script>
 <script>
 
 $(function () {
    // your code goes here
    $( "#check_links" ).click(function() {
+       $( "#check_links" ).html('Checking...');
        $( "#check_links" ).addClass('disabled');
        //alert( "Handler for .click() called." );
-       $( "#progress-bar" ).show();
-       
+       $( "#img-spinner" ).show();
+       simple_link_check();
    });
+     
 });
-$("#ajaxform").submit(function(e)
-{
-    var postData = $(this).serializeArray();
-    var formURL = $(this).attr("action");
+
+function reset_progress(){
+    //var initial_progress = 2;
+    //$('.progress-bar').css('width', initial_progress +'%').attr('aria-valuenow', initial_progress);    
+    $( "#img-spinner" ).hide();
+    
+    $( "#check_links" ).removeClass('disabled');
+    $( "#check_links" ).html('Check Links');
+    
+   // $( "#lnk-progress-bar" ).hide();
+    
+}
+
+function simple_link_check(){
+
     $.ajax(
-    {
-        url : formURL,
-        type: "POST",
-        data : postData,
-        success:function(data, textStatus, jqXHR)
-        {
-            //data: return data from server
-        },
-        error: function(jqXHR, textStatus, errorThrown)
-        {
-            //if fails     
-        }
-    });
-    e.preventDefault(); //STOP default action
-    e.unbind(); //unbind. to stop multiple form submit.
-});
-$("#ajaxform").submit(); //Submit  the FORM
+       {
+           url : "{% url 'make_link_check' %}",
+           type: "GET",
+           success:function(data, textStatus, jqXHR){
+               if (data.success){
+                   // hide rows with bad links
+                   if (data.ids_to_remove){
+                       for (var i=0; i < data.ids_to_remove.length; i++) {
+                           //$( "#meta-" + data.ids_to_remove[i]).hide();                           
+                           $( "#lbl-" + data.ids_to_remove[i]).removeClass('label-success');                           
+                           $( "#lbl-" + data.ids_to_remove[i]).addClass('label-danger');                           
+                           $( "#lbl-" + data.ids_to_remove[i]).html('No');                           
+                           $( "#embed-" + data.ids_to_remove[i]).html('n/a');                           
+                        }
+                   }   
+                   reset_progress();
+               }else{
+                   alert('Sorry!  Failed to check all of the links!');
+                   reset_progress();
+               }
+               //data: return data from server
+           },
+           error: function(jqXHR, textStatus, errorThrown)
+           {
+               alert('Sorry!  Failed to check all of the links!');
+               reset_progress();
+           }
+       });
+}
+
 </script>
 {% endblock %}
 
 {% block main_container %}
 
 <div>
-    <p><a href="#" class="btn btn-info btn-xs active" id="check_links" role="button">Check Links</a></p>
-    <div class="progress" id="progress-bar" style="display:none;">
-      <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:5%;">checking links..
-        <span class="sr-only">60% Complete</span>
+  
+    <p><a href="#" class="btn btn-info btn-xs active" id="check_links" role="button">Check Links</a> <img src="{{ STATIC_URL }}images/spinner-loader.gif" width="20" alt="" / id="img-spinner" style="display:none;" ></p>
+
+    <div class="progress" id="lnk-progress-bar" style="display:none;">
+      <div class="progress-bar progress-bar-striped active"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+        <span class="sr-only">Checking Links...</span>
       </div>
     </div>
+    <!--div class="progress" id="progress-bar" style="display:none;">
+      <div class="progress-bar progress-bar-info progress-bar-striped" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width:5%;">checking links..
+        <span class="sr-only">60% Complete</span>
+      </div>
+    </div-->
 </div>
 <table class="table table-bordered table-condensed">
  	<tr>
@@ -60,16 +130,16 @@ $("#ajaxform").submit(); //Submit  the FORM
  		<th>Upload date</th>
  	</tr>
 {% for ml in links %}
-    <tr>
+    <tr id="meta-{{ ml.id}}">
         <td><a href="{% url 'admin:metadata_geographicmetadata_change' ml.id %}">{{ forloop.counter }}</a></td>
-        <td>{% if ml.links_working %}<span class="label label-success">Yes</span>
-            {% else %}<span class="label label-danger">No</span>
+        <td>{% if ml.links_working %}<span id="lbl-{{ ml.id}}" class="label label-success">Yes</span>
+            {% else %}<span id="meta-{{ ml.id}}" class="label label-danger">No</span>
             {% endif %}</td>
         <td>{{ ml.datafile.dataset.dataverse }}</td>
         <td>{{ ml.datafile.dataset }}</td>
         <td>{{ ml.datafile }}</td>
         <td><a href="{{ ml.layer_link|safe }}">worldmap</a></td>
-        <td><iframe width="90" height="90" href="{{ ml.embed_map_link|safe }}"></iframe></td>
+        <td id="embed-{{ ml.id}}"><iframe width="140" height="140" src="{{ ml.embed_map_link|safe }}"></iframe></td>
         <td>{{ ml.modified }}</td>
     <tr>
 {% empty %}
