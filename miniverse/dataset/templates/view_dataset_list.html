@@ -39,7 +39,7 @@ $("#ajaxform").submit(); //Submit  the FORM
 {% for ds in datasets %}
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h3 class="panel-title">{{ ds }}<span style="font-size:70%">
+    <h3 class="panel-title">{{ ds }} Dataset<span style="font-size:70%">
 		&nbsp; <a href="{% url 'admin:dataset_dataset_change' ds.id %}">edit</a></h3>
   </div>
   <div class="panel-body">
